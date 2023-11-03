@@ -40,5 +40,4 @@ function RatingStars({ rating }) {
   );
 }
 
-
 export default RatingStars;
