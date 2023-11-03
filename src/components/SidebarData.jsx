@@ -1,25 +1,24 @@
 import React from "react";
-import * as FaIcons from "react-icons/fa";
-import * as AiIcons from "react-icons/ai";
-import * as IoIcons from "react-icons/io";
+import * as IconNameGi from "react-icons/gi";
+import * as IconNameMd  from "react-icons/md";
 
 export const SidebarData = [
   {
-    title: "Cruise",
+    title: "Cruise Booking",
     path: "/",
-    icons: <AiIcons.AiFillHome />,
+    icon: <IconNameGi.GiShipBow />,
     cName: "nav-text",
   },
   {
-    title: "Activity",
+    title: "Activity Booking",
     path: "/activity",
-    icons: <IoIcons.IoIosPaper />,
+    icon: <IconNameMd.MdRowing />,
     cName: "nav-text",
   },
   {
-    title: "Package",
+    title: "Package Booking",
     path: "/package",
-    icons: <FaIcons.FaCartPlus />,
+    icon: <IconNameMd.MdFlightTakeoff />,
     cName: "nav-text",
   },
 ];
