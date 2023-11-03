@@ -1,4 +1,5 @@
 import React from "react";
+import "../style/activity.css";
 
 function Activity() {
   return (
