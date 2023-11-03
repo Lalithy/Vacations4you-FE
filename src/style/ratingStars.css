@@ -1,0 +1,17 @@
+.rating {
+  display: flex;
+}
+
+.star {
+  width: 1.2rem;
+  height: 1.2rem;
+  position: relative;
+}
+
+.starEmpty,
+.starFull {
+  font-size: 1.2rem;
+  position: absolute;
+  overflow: hidden;
+  color: var(--secondary-color);
+}
