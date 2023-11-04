@@ -63,22 +63,22 @@ const cruises = [
 
 function Cruise() {
   const [cartsVisibilty, setCartVisible] = useState(false);
-  const [cruisesInCart, setProducts] = useState(
+  const [cruisesInCart, setCruise] = useState(
     JSON.parse(localStorage.getItem("shopping-cart")) || []
   );
   useEffect(() => {
     localStorage.setItem("shopping-cart", JSON.stringify(cruisesInCart));
   }, [cruisesInCart]);
-  const addProductToCart = (cruise) => {
-    const newProduct = {
+  const addCruiseToCart = (cruise) => {
+    const newCruise = {
       ...cruise,
       count: 1,
     };
-    setProducts([...cruisesInCart, newProduct]);
+    setCruise([...cruisesInCart, newCruise]);
   };
 
   const onQuantityChange = (cruiseId, count) => {
-    setProducts((oldState) => {
+    setCruise((oldState) => {
       const cruisesIndex = oldState.findIndex((item) => item.id === cruiseId);
       if (cruisesIndex !== -1) {
         oldState[cruisesIndex].count = count;
@@ -87,8 +87,8 @@ function Cruise() {
     });
   };
 
-  const onProductRemove = (cruise) => {
-    setProducts((oldState) => {
+  const onCruiseRemove = (cruise) => {
+    setCruise((oldState) => {
       const cruisesIndex = oldState.findIndex((item) => item.id === cruise.id);
       if (cruisesIndex !== -1) {
         oldState.splice(cruisesIndex, 1);
@@ -99,15 +99,13 @@ function Cruise() {
 
   return (
     <div className="cruise-app">
-      <div>
-        {/* searching criteria */}
-      </div>
+      <div>{/* searching criteria */}</div>
       <CruiseCart
         visibilty={cartsVisibilty}
         cruises={cruisesInCart}
         onClose={() => setCartVisible(false)}
         onQuantityChange={onQuantityChange}
-        onCruiseRemove={onProductRemove}
+        onCruiseRemove={onCruiseRemove}
       />
       <div className="navbar-cart">
         <button
@@ -135,10 +133,7 @@ function Cruise() {
               <p>{cruise.description}</p>
               <span className="cruise-price">{cruise.price}$</span>
               <div className="buttons">
-                <button
-                  className="btn"
-                  onClick={() => addProductToCart(cruise)}
-                >
+                <button className="btn" onClick={() => addCruiseToCart(cruise)}>
                   Add to cart
                 </button>
               </div>
