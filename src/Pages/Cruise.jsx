@@ -15,71 +15,10 @@ import {
   Select,
 } from "@mui/material";
 
-// import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-// import { LocalizationProvider } from "@mui/x-date-pickers-pro";
-// import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
-// import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { DateRangePicker } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
 
 import axios from "axios";
-
-const cruises = [
-  {
-    id: 1,
-    name: "Carnival Cruise Line",
-    rating: 4.3,
-    description:
-      "Carnival Cruise Line is an international cruise line with headquarters in Doral, Florida.",
-    price: 199,
-    image: require("../assets/images/cruise-1.png"),
-  },
-  {
-    id: 2,
-    name: "Princess Cruises",
-    rating: 4.2,
-    description:
-      "Princess Cruises is an American cruise line owned by Carnival Corporation & plc.",
-    price: 229,
-    image: require("../assets/images/cruise-2.png"),
-  },
-  {
-    id: 3,
-    name: "Norwegian Cruise Line",
-    rating: 3.2,
-    description:
-      "Norwegian Cruise Line, also known in short as Norwegian, is an American cruise line founded in Norway in 1966.",
-    price: 99,
-    image: require("../assets/images/cruise-3.png"),
-  },
-  {
-    id: 4,
-    name: "Holland America Line",
-    rating: 4.8,
-    description:
-      "Holland America Line is a US-owned cruise line, a subsidiary of Carnival Corporation & plc headquartered in Seattle.",
-    price: 119,
-    image: require("../assets/images/cruise-4.png"),
-  },
-  {
-    id: 5,
-    name: "Viking Cruises",
-    rating: 4.5,
-    description:
-      "Viking is a cruise line providing river, ocean, and expedition cruises.",
-    price: 85,
-    image: require("../assets/images/cruise-5.png"),
-  },
-  {
-    id: 6,
-    name: "Celebrity Cruises",
-    rating: 3.8,
-    description:
-      "Celebrity Cruises is a cruise line headquartered in Miami, Florida and a wholly owned subsidiary of Royal Caribbean Group.",
-    price: 149,
-    image: require("../assets/images/cruise-6.png"),
-  },
-];
 
 function Cruise() {
   const [departure, setDeparture] = React.useState("");
