@@ -4,7 +4,7 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 function CruiseCart({
-  visibilty,
+  visibility,
   cruises,
   onCruiseRemove,
   onClose,
@@ -14,7 +14,7 @@ function CruiseCart({
     <div
       className="modal"
       style={{
-        display: visibilty ? "block" : "none",
+        display: visibility ? "block" : "none",
       }}
     >
       <div className="shoppingCart">

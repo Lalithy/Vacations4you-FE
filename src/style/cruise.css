@@ -34,12 +34,12 @@
 }
 
 .cruise-count {
-	margin-top: -5px;
-	width: 20px;
-	height: 20px;
-	border-radius: 12px;
-	/* background-color: var(--secondary-color); */
-	overflow: hidden;
+  margin-top: -5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 12px;
+  /* background-color: var(--secondary-color); */
+  overflow: hidden;
 }
 
 main {
@@ -49,7 +49,9 @@ main {
 }
 
 .title {
-  margin: 2rem 0;
+  /* margin: 10rem 0; */
+  margin-top: 5%;
+  margin-bottom: 2%;
 }
 
 .cruises {
@@ -128,4 +130,37 @@ main {
 .buttons .btn:hover {
   background-color: var(--main-color);
   color: #fff;
+}
+
+.cruise-card {
+  background-color: rgb(233, 233, 233);
+  border-radius: 5px;
+  height: 250px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.select-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.rs-picker-toggle-textbox {
+  background-color: rgb(233, 233, 233) !important;
+}
+
+.rs-picker-toggle.rs-btn.rs-btn-default {
+  padding-top: 17px !important;
+  padding-bottom: 17px !important;
+  border: 2px solid rgb(195, 193, 193);
+  background-color: rgb(233, 233, 233) !important;
+}
+
+.rs-picker-toggle.rs-btn.rs-btn-default:hover {
+  border: 1px solid black !important;
+  border-radius: 5px !important;
 }
