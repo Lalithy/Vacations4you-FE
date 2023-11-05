@@ -4,7 +4,7 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 function CruiseCart({
-  visibilty,
+  visibility,
   cruises,
   onCruiseRemove,
   onClose,
@@ -14,7 +14,7 @@ function CruiseCart({
     <div
       className="modal"
       style={{
-        display: visibilty ? "block" : "none",
+        display: visibility ? "block" : "none",
       }}
     >
       <div className="shoppingCart">
@@ -29,8 +29,8 @@ function CruiseCart({
             <span className="empty-text">Your cart is currently empty</span>
           )}
           {cruises.map((cruise) => (
-            <div className="cart-cruise" key={cruise.id}>
-              <img src={cruise.image} alt={cruise.name} />
+            <div className="cart-cruise" key={cruise._id}>
+              <img src={cruise.image_path} alt={cruise.name} />
               <div className="cruise-info">
                 <h3>{cruise.name}</h3>
                 <span className="cruise-price">
@@ -41,7 +41,7 @@ function CruiseCart({
                 className="count"
                 value={cruise.count}
                 onChange={(event) => {
-                  onQuantityChange(cruise.id, event.target.value);
+                  onQuantityChange(cruise._id, event.target.value);
                 }}
               >
                 {[...Array(10).keys()].map((number) => {

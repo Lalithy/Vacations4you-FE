@@ -3,82 +3,11 @@ import "../style/cruise.css";
 import { FaShoppingCart } from "react-icons/fa";
 import RatingStars from "../components/RatingStars";
 import CruiseCart from "../components/CruiseCart";
-
-const cruises = [
-  {
-    // id: 1,
-    // name: "Carnival Cruise Line",
-    // rating: 4.3,
-    // description:
-    //   "Carnival Cruise Line is an international cruise line with headquarters in Doral, Florida.",
-    // price: 199,
-    // image: require("../assets/images/cruise-1.png"),
-
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRczTUYYem-W_ZJBBz5XUcYnsMKQSZKU2Yf-W3D5PYP&s",
-    rating: 4.3,
-    name: "Carnival Cruise Line",
-
-    _id: "6538fd2889a1ba1396db943c",
-    departure: "Colombo",
-    arrival: "Hambantota",
-    departure_date: "2023-09-16T04:52:15.000Z",
-    arrival_date: "2023-10-16T04:52:15.000Z",
-    cabin: "Suit",
-    deck: "D1",
-    price: 15000,
-    duration: 5,
-    cruise_provider: "Jetwing",
-  },
-  // ,
-  // {
-  //   id: 2,
-  //   name: "Princess Cruises",
-  //   rating: 4.2,
-  //   description:
-  //     "Princess Cruises is an American cruise line owned by Carnival Corporation & plc.",
-  //   price: 229,
-  //   image: require("../assets/images/cruise-2.png"),
-  // },
-  // {
-  //   id: 3,
-  //   name: "Norwegian Cruise Line",
-  //   rating: 3.2,
-  //   description:
-  //     "Norwegian Cruise Line, also known in short as Norwegian, is an American cruise line founded in Norway in 1966.",
-  //   price: 99,
-  //   image: require("../assets/images/cruise-3.png"),
-  // },
-  // {
-  //   id: 4,
-  //   name: "Holland America Line",
-  //   rating: 4.8,
-  //   description:
-  //     "Holland America Line is a US-owned cruise line, a subsidiary of Carnival Corporation & plc headquartered in Seattle.",
-  //   price: 119,
-  //   image: require("../assets/images/cruise-4.png"),
-  // },
-  // {
-  //   id: 5,
-  //   name: "Viking Cruises",
-  //   rating: 4.5,
-  //   description:
-  //     "Viking is a cruise line providing river, ocean, and expedition cruises.",
-  //   price: 85,
-  //   image: require("../assets/images/cruise-5.png"),
-  // },
-  // {
-  //   id: 6,
-  //   name: "Celebrity Cruises",
-  //   rating: 3.8,
-  //   description:
-  //     "Celebrity Cruises is a cruise line headquartered in Miami, Florida and a wholly owned subsidiary of Royal Caribbean Group.",
-  //   price: 149,
-  //   image: require("../assets/images/cruise-6.png"),
-  // },
-];
+import CruiseService from "../service/cruiseService";
+import CruiseClient from "../service-client/cruiseClient";
 
 function Cruise() {
-  const [cartsVisibilty, setCartVisible] = useState(false);
+  const [cartsVisibility, setCartVisible] = useState(false);
   const [cruisesInCart, setCruise] = useState(
     JSON.parse(localStorage.getItem("shopping-cart")) || []
   );
@@ -93,9 +22,25 @@ function Cruise() {
     setCruise([...cruisesInCart, newCruise]);
   };
 
+  //Get all cruise
+  const [cruiseDetails, setCruiseDetails] = useState([]);
+
+  useEffect(() => {
+    const cruiseService = new CruiseService(CruiseClient);
+    const fetchCruise = async () => {
+      try {
+        const cruiseList = await cruiseService.getAllCruise();
+        setCruiseDetails(cruiseList);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCruise();
+  }, []);
+
   const onQuantityChange = (cruiseId, count) => {
     setCruise((oldState) => {
-      const cruisesIndex = oldState.findIndex((item) => item.id === cruiseId);
+      const cruisesIndex = oldState.findIndex((item) => item._id === cruiseId);
       if (cruisesIndex !== -1) {
         oldState[cruisesIndex].count = count;
       }
@@ -105,7 +50,9 @@ function Cruise() {
 
   const onCruiseRemove = (cruise) => {
     setCruise((oldState) => {
-      const cruisesIndex = oldState.findIndex((item) => item.id === cruise.id);
+      const cruisesIndex = oldState.findIndex(
+        (item) => item._id === cruise._id
+      );
       if (cruisesIndex !== -1) {
         oldState.splice(cruisesIndex, 1);
       }
@@ -117,7 +64,7 @@ function Cruise() {
     <div className="cruise-app">
       <div>{/* searching criteria */}</div>
       <CruiseCart
-        visibilty={cartsVisibilty}
+        visibility={cartsVisibility}
         cruises={cruisesInCart}
         onClose={() => setCartVisible(false)}
         onQuantityChange={onQuantityChange}
@@ -137,12 +84,12 @@ function Cruise() {
       <main>
         <h2 className="title">Available Cruise Packages</h2>
         <div className="cruises">
-          {cruises.map((cruise) => (
+          {cruiseDetails.map((cruise) => (
             <div className="cruise" key={cruise._id}>
               <img
                 className="cruise-image"
-                src={cruise.image}
-                alt={cruise.image}
+                src={cruise.image_path}
+                alt={cruise.image_path}
               />
               <h4 className="cruise-name">{cruise.name}</h4>
               <RatingStars rating={cruise.rating} />
