@@ -6,59 +6,75 @@ import CruiseCart from "../components/CruiseCart";
 
 const cruises = [
   {
-    id: 1,
-    name: "Carnival Cruise Line",
+    // id: 1,
+    // name: "Carnival Cruise Line",
+    // rating: 4.3,
+    // description:
+    //   "Carnival Cruise Line is an international cruise line with headquarters in Doral, Florida.",
+    // price: 199,
+    // image: require("../assets/images/cruise-1.png"),
+
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRczTUYYem-W_ZJBBz5XUcYnsMKQSZKU2Yf-W3D5PYP&s",
     rating: 4.3,
-    description:
-      "Carnival Cruise Line is an international cruise line with headquarters in Doral, Florida.",
-    price: 199,
-    image: require("../assets/images/cruise-1.png"),
+    name: "Carnival Cruise Line",
+
+    _id: "6538fd2889a1ba1396db943c",
+    departure: "Colombo",
+    arrival: "Hambantota",
+    departure_date: "2023-09-16T04:52:15.000Z",
+    arrival_date: "2023-10-16T04:52:15.000Z",
+    cabin: "Suit",
+    deck: "D1",
+    price: 15000,
+    duration: 5,
+    cruise_provider: "Jetwing",
   },
-  {
-    id: 2,
-    name: "Princess Cruises",
-    rating: 4.2,
-    description:
-      "Princess Cruises is an American cruise line owned by Carnival Corporation & plc.",
-    price: 229,
-    image: require("../assets/images/cruise-2.png"),
-  },
-  {
-    id: 3,
-    name: "Norwegian Cruise Line",
-    rating: 3.2,
-    description:
-      "Norwegian Cruise Line, also known in short as Norwegian, is an American cruise line founded in Norway in 1966.",
-    price: 99,
-    image: require("../assets/images/cruise-3.png"),
-  },
-  {
-    id: 4,
-    name: "Holland America Line",
-    rating: 4.8,
-    description:
-      "Holland America Line is a US-owned cruise line, a subsidiary of Carnival Corporation & plc headquartered in Seattle.",
-    price: 119,
-    image: require("../assets/images/cruise-4.png"),
-  },
-  {
-    id: 5,
-    name: "Viking Cruises",
-    rating: 4.5,
-    description:
-      "Viking is a cruise line providing river, ocean, and expedition cruises.",
-    price: 85,
-    image: require("../assets/images/cruise-5.png"),
-  },
-  {
-    id: 6,
-    name: "Celebrity Cruises",
-    rating: 3.8,
-    description:
-      "Celebrity Cruises is a cruise line headquartered in Miami, Florida and a wholly owned subsidiary of Royal Caribbean Group.",
-    price: 149,
-    image: require("../assets/images/cruise-6.png"),
-  },
+  // ,
+  // {
+  //   id: 2,
+  //   name: "Princess Cruises",
+  //   rating: 4.2,
+  //   description:
+  //     "Princess Cruises is an American cruise line owned by Carnival Corporation & plc.",
+  //   price: 229,
+  //   image: require("../assets/images/cruise-2.png"),
+  // },
+  // {
+  //   id: 3,
+  //   name: "Norwegian Cruise Line",
+  //   rating: 3.2,
+  //   description:
+  //     "Norwegian Cruise Line, also known in short as Norwegian, is an American cruise line founded in Norway in 1966.",
+  //   price: 99,
+  //   image: require("../assets/images/cruise-3.png"),
+  // },
+  // {
+  //   id: 4,
+  //   name: "Holland America Line",
+  //   rating: 4.8,
+  //   description:
+  //     "Holland America Line is a US-owned cruise line, a subsidiary of Carnival Corporation & plc headquartered in Seattle.",
+  //   price: 119,
+  //   image: require("../assets/images/cruise-4.png"),
+  // },
+  // {
+  //   id: 5,
+  //   name: "Viking Cruises",
+  //   rating: 4.5,
+  //   description:
+  //     "Viking is a cruise line providing river, ocean, and expedition cruises.",
+  //   price: 85,
+  //   image: require("../assets/images/cruise-5.png"),
+  // },
+  // {
+  //   id: 6,
+  //   name: "Celebrity Cruises",
+  //   rating: 3.8,
+  //   description:
+  //     "Celebrity Cruises is a cruise line headquartered in Miami, Florida and a wholly owned subsidiary of Royal Caribbean Group.",
+  //   price: 149,
+  //   image: require("../assets/images/cruise-6.png"),
+  // },
 ];
 
 function Cruise() {
@@ -122,7 +138,7 @@ function Cruise() {
         <h2 className="title">Available Cruise Packages</h2>
         <div className="cruises">
           {cruises.map((cruise) => (
-            <div className="cruise" key={cruise.id}>
+            <div className="cruise" key={cruise._id}>
               <img
                 className="cruise-image"
                 src={cruise.image}
@@ -130,7 +146,42 @@ function Cruise() {
               />
               <h4 className="cruise-name">{cruise.name}</h4>
               <RatingStars rating={cruise.rating} />
-              <p>{cruise.description}</p>
+              <p>
+                <strong>Cabin - </strong>
+                {cruise.cabin}
+              </p>
+              <p>
+                <strong>Deck - </strong>
+                {cruise.deck}
+              </p>
+              <p>
+                <strong>Price - </strong>
+                {cruise.price}
+              </p>
+              <p>
+                <strong>Arrival - </strong>
+                {cruise.arrival}
+              </p>
+              <p>
+                <strong>Departure - </strong>
+                {cruise.departure}
+              </p>
+              <p>
+                <strong>Duration - </strong>
+                {cruise.duration}
+              </p>
+              <p>
+                <strong>Provider - </strong>
+                {cruise.cruise_provider}
+              </p>
+              <p>
+                <strong>Arrival Date - </strong>
+                {cruise.arrival_date}
+              </p>
+              <p>
+                <strong>Departure Date - </strong>
+                {cruise.departure_date}
+              </p>
               <span className="cruise-price">{cruise.price}$</span>
               <div className="buttons">
                 <button className="btn" onClick={() => addCruiseToCart(cruise)}>
