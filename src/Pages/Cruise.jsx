@@ -3,6 +3,8 @@ import "../style/cruise.css";
 import { FaShoppingCart } from "react-icons/fa";
 import RatingStars from "../components/RatingStars";
 import CruiseCart from "../components/CruiseCart";
+import CruiseService from "../service/cruiseService";
+import CruiseClient from "../service-client/cruiseClient";
 import {
   Button,
   Card,
@@ -118,9 +120,25 @@ function Cruise() {
     setCruise([...cruisesInCart, newCruise]);
   };
 
+  //Get all cruise
+  const [cruiseDetails, setCruiseDetails] = useState([]);
+
+  useEffect(() => {
+    const cruiseService = new CruiseService(CruiseClient);
+    const fetchCruise = async () => {
+      try {
+        const cruiseList = await cruiseService.getAllCruise();
+        setCruiseDetails(cruiseList);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCruise();
+  }, []);
+
   const onQuantityChange = (cruiseId, count) => {
     setCruise((oldState) => {
-      const cruisesIndex = oldState.findIndex((item) => item.id === cruiseId);
+      const cruisesIndex = oldState.findIndex((item) => item._id === cruiseId);
       if (cruisesIndex !== -1) {
         oldState[cruisesIndex].count = count;
       }
@@ -130,7 +148,9 @@ function Cruise() {
 
   const onCruiseRemove = (cruise) => {
     setCruise((oldState) => {
-      const cruisesIndex = oldState.findIndex((item) => item.id === cruise.id);
+      const cruisesIndex = oldState.findIndex(
+        (item) => item._id === cruise._id
+      );
       if (cruisesIndex !== -1) {
         oldState.splice(cruisesIndex, 1);
       }
@@ -304,16 +324,51 @@ function Cruise() {
 
         <h2 className="title">Available Cruise Packages</h2>
         <div className="cruises">
-          {cruises.map((cruise) => (
-            <div className="cruise" key={cruise.id}>
+          {cruiseDetails.map((cruise) => (
+            <div className="cruise" key={cruise._id}>
               <img
                 className="cruise-image"
-                src={cruise.image}
-                alt={cruise.image}
+                src={cruise.image_path}
+                alt={cruise.image_path}
               />
               <h4 className="cruise-name">{cruise.name}</h4>
               <RatingStars rating={cruise.rating} />
-              <p>{cruise.description}</p>
+              <p>
+                <strong>Cabin - </strong>
+                {cruise.cabin}
+              </p>
+              <p>
+                <strong>Deck - </strong>
+                {cruise.deck}
+              </p>
+              <p>
+                <strong>Price - </strong>
+                {cruise.price}
+              </p>
+              <p>
+                <strong>Arrival - </strong>
+                {cruise.arrival}
+              </p>
+              <p>
+                <strong>Departure - </strong>
+                {cruise.departure}
+              </p>
+              <p>
+                <strong>Duration - </strong>
+                {cruise.duration}
+              </p>
+              <p>
+                <strong>Provider - </strong>
+                {cruise.cruise_provider}
+              </p>
+              <p>
+                <strong>Arrival Date - </strong>
+                {cruise.arrival_date}
+              </p>
+              <p>
+                <strong>Departure Date - </strong>
+                {cruise.departure_date}
+              </p>
               <span className="cruise-price">{cruise.price}$</span>
               <div className="buttons">
                 <button className="btn" onClick={() => addCruiseToCart(cruise)}>
