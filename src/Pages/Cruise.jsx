@@ -161,9 +161,11 @@ function Cruise() {
           )}
         </button>
       </div>
-      <main>
-        <Card>
+
+      <div className="cruise-div">
+      <Card>
           <Grid container className="cruise-card">
+
             <Grid item xs={4} sx={{ margin: "0 5px" }}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Departure</InputLabel>
@@ -260,6 +262,9 @@ function Cruise() {
             </Grid>
           </Grid>
         </Card>
+      </div>
+      <main>
+        
 
         <h2 className="title">Available Cruise Packages</h2>
         <div className="cruises">

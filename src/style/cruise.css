@@ -43,9 +43,10 @@
 }
 
 main {
-  width: 80%;
-  margin: auto;
-  padding: 2rem 0;
+  width: 98%;
+  /* margin: auto; */
+  /* padding: 2rem 0; */
+  padding-left: 300px;
 }
 
 .title {
@@ -142,11 +143,12 @@ main {
   justify-content: center;
 }
 
-.select-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 10px;
+.cruise-div {
+  background-color: rgb(233, 233, 233);
+  border-radius: 5px;
+  height: 250px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .rs-picker-toggle-textbox {
