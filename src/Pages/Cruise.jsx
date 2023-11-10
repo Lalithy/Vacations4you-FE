@@ -61,12 +61,36 @@ function Cruise() {
 
   //Get all cruise
   const [cruiseDetails, setCruiseDetails] = useState([]);
+  const cruiseService = new CruiseService(CruiseClient);
 
+  useEffect(() => {
+    const fetchCruise = async () => {
+      try {
+        const cruiseList = await cruiseService.getAllCruise();
+        setCruiseDetails(cruiseList);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCruise();
+  }, []);
+
+  const fetchAllCruise = async () => {
+    try {
+      const cruiseList = await cruiseService.getAllCruise();
+      setCruiseDetails(cruiseList);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  //Get cruise by criteria
   useEffect(() => {
     const cruiseService = new CruiseService(CruiseClient);
     const fetchCruise = async () => {
       try {
-        const cruiseList = await cruiseService.getAllCruise();
+        const cruiseList = await cruiseService.getCruiseByCriteria();
         setCruiseDetails(cruiseList);
       } catch (error) {
         console.log(error);
@@ -99,24 +123,28 @@ function Cruise() {
 
   const apiUrl = "http://localhost:5000/api/cruise";
 
-  //Get Cruise data by search criteria
-
+  //Set cruise data by search criteria
   const queryParams = {
     deck: deck,
     cabin: cabin,
     departure: departure,
     arrival: arrival,
-    departure_date: departure_date,
-    arrival_date: arrival_date,
-    // departure_date: departure_date ? new Date(departure_date).toISOString().split('T')[0] : '',
-    // arrival_date: arrival_date ? new Date(arrival_date).toISOString().split('T')[0] : '',
+    departure_date: departure_date
+      ? new Date(departure_date).toISOString().split("T")[0]
+      : "",
+    arrival_date: arrival_date
+      ? new Date(arrival_date).toISOString().split("T")[0]
+      : "",
   };
 
+  //Get Cruise data by search criteria
   const getCruiseBySearch = async () => {
     try {
       const data = await axios.get(apiUrl, { params: queryParams });
-      console.log(data);
+      setCruiseDetails(data.data);
     } catch (error) {
+      setCruiseDetails([]);
+
       if (error.response) {
         console.log(
           "Server responded with a non-2xx status:",
@@ -138,6 +166,8 @@ function Cruise() {
     setDeck("");
     setDepartureDate("");
     setArrivalDate("");
+
+    fetchAllCruise()
   };
 
   return (
@@ -163,9 +193,8 @@ function Cruise() {
       </div>
 
       <div className="cruise-div">
-      <Card>
+        <Card>
           <Grid container className="cruise-card">
-
             <Grid item xs={4} sx={{ margin: "0 5px" }}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Departure</InputLabel>
@@ -207,6 +236,8 @@ function Cruise() {
                   onChange={(newDates) => {
                     if (newDates && newDates.length === 2) {
                       const [start, end] = newDates;
+                      // setDepartureDate(start.toJSON());
+                      // setArrivalDate(end.toJSON());
                       setDepartureDate(start.toISOString());
                       setArrivalDate(end.toISOString());
                     }
@@ -264,8 +295,6 @@ function Cruise() {
         </Card>
       </div>
       <main>
-        
-
         <h2 className="title">Available Cruise Packages</h2>
         <div className="cruises">
           {cruiseDetails.map((cruise) => (
