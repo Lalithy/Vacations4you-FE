@@ -83,9 +83,10 @@ function Cruise() {
 
   //Get all cruise
   const [cruiseDetails, setCruiseDetails] = useState([]);
-  const cruiseService = new CruiseService(CruiseClient);
+  
 
   useEffect(() => {
+    const cruiseService = new CruiseService(CruiseClient);
     const fetchCruise = async () => {
       try {
         const cruiseList = await cruiseService.getAllCruise();
@@ -98,6 +99,7 @@ function Cruise() {
   }, []);
 
   const fetchAllCruise = async () => {
+    const cruiseService = new CruiseService(CruiseClient);
     try {
       const cruiseList = await cruiseService.getAllCruise();
       setCruiseDetails(cruiseList);
@@ -106,20 +108,6 @@ function Cruise() {
     }
   };
 
-
-  //Get cruise by criteria
-  useEffect(() => {
-    const cruiseService = new CruiseService(CruiseClient);
-    const fetchCruise = async () => {
-      try {
-        const cruiseList = await cruiseService.getCruiseByCriteria();
-        setCruiseDetails(cruiseList);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchCruise();
-  }, []);
 
   const onQuantityChange = (cruiseId, count) => {
     setCruise((oldState) => {
