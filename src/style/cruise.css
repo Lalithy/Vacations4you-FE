@@ -46,12 +46,11 @@ main {
   width: 98%;
   /* margin: auto; */
   /* padding: 2rem 0; */
-  padding-left: 300px;
+  /* padding-left: 300px; */
 }
 
 .title {
-  /* margin: 10rem 0; */
-  margin-top: 5%;
+  /* margin-top: 5%; */
   margin-bottom: 2%;
 }
 
@@ -134,7 +133,8 @@ main {
 }
 
 .cruise-card {
-  background-color: rgb(233, 233, 233);
+  /* background-color: rgb(233, 233, 233); */
+  border: 2px solid rgb(6, 30, 109);
   border-radius: 5px;
   height: 250px;
 
@@ -151,18 +151,30 @@ main {
   margin-right: 20px;
 }
 
-.rs-picker-toggle-textbox {
+/* .rs-picker-toggle-textbox {
   background-color: rgb(233, 233, 233) !important;
-}
+} */
 
 .rs-picker-toggle.rs-btn.rs-btn-default {
   padding-top: 17px !important;
   padding-bottom: 17px !important;
   border: 2px solid rgb(195, 193, 193);
-  background-color: rgb(233, 233, 233) !important;
+  /* background-color: rgb(233, 233, 233) !important; */
 }
 
 .rs-picker-toggle.rs-btn.rs-btn-default:hover {
   border: 1px solid black !important;
   border-radius: 5px !important;
+}
+
+.second-filter {
+  margin-top: 5%;
+  margin-left: 20px;
+  /* height: 600px; */
+  border: 2px solid rgb(6, 30, 109);
+  border-radius: 5%;
+}
+
+.MuiSlider-root.MuiSlider-colorPrimary.MuiSlider-sizeMedium.css-187mznn-MuiSlider-root {
+  margin-left: 0 !important;
 }

@@ -2,6 +2,7 @@ import React from "react";
 import "../style/shoppingCart.css";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 function CruiseCart({
   visibility,
@@ -62,7 +63,9 @@ function CruiseCart({
             </div>
           ))}
           {cruises.length > 0 && (
-            <button className="btn checkout-btn">Proceed to checkout</button>
+            <Link to="/cruise-booking" className="btn checkout-btn">
+              Proceed to checkout
+            </Link>
           )}
         </div>
       </div>
