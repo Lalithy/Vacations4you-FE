@@ -13,7 +13,13 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  // Slider,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormLabel
 } from "@mui/material";
+
 
 import { DateRangePicker } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
@@ -27,6 +33,14 @@ function Cruise() {
   const [deck, setDeck] = React.useState("");
   const [departure_date, setDepartureDate] = React.useState(null);
   const [arrival_date, setArrivalDate] = React.useState(null);
+  const [duration, setDuration] = React.useState("");
+  const [cruise_provider, setCruiseProvider] = React.useState("");
+
+  const [value, setValue] = React.useState('');
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
 
   const handleChangeDeparture = (event) => {
     setDeparture(event.target.value);
@@ -42,6 +56,14 @@ function Cruise() {
 
   const handleChangeCabin = (event) => {
     setCabin(event.target.value);
+  };
+
+  const handleChangeDuration = (event) => {
+    setDuration(event.target.value);
+  };
+
+  const handleChangeCruiseProvider = (event) => {
+    setCruiseProvider(event.target.value);
   };
 
   const [cartsVisibility, setCartVisible] = useState(false);
@@ -163,9 +185,8 @@ function Cruise() {
       </div>
 
       <div className="cruise-div">
-      <Card>
+        <Card>
           <Grid container className="cruise-card">
-
             <Grid item xs={4} sx={{ margin: "0 5px" }}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Departure</InputLabel>
@@ -263,66 +284,177 @@ function Cruise() {
           </Grid>
         </Card>
       </div>
-      <main>
-        
 
-        <h2 className="title">Available Cruise Packages</h2>
-        <div className="cruises">
-          {cruiseDetails.map((cruise) => (
-            <div className="cruise" key={cruise._id}>
-              <img
-                className="cruise-image"
-                src={cruise.image_path}
-                alt={cruise.image_path}
-              />
-              <h4 className="cruise-name">{cruise.name}</h4>
-              <RatingStars rating={cruise.rating} />
-              <p>
-                <strong>Cabin - </strong>
-                {cruise.cabin}
-              </p>
-              <p>
-                <strong>Deck - </strong>
-                {cruise.deck}
-              </p>
-              <p>
-                <strong>Price - </strong>
-                {cruise.price}
-              </p>
-              <p>
-                <strong>Arrival - </strong>
-                {cruise.arrival}
-              </p>
-              <p>
-                <strong>Departure - </strong>
-                {cruise.departure}
-              </p>
-              <p>
-                <strong>Duration - </strong>
-                {cruise.duration}
-              </p>
-              <p>
-                <strong>Provider - </strong>
-                {cruise.cruise_provider}
-              </p>
-              <p>
-                <strong>Arrival Date - </strong>
-                {cruise.arrival_date}
-              </p>
-              <p>
-                <strong>Departure Date - </strong>
-                {cruise.departure_date}
-              </p>
-              <span className="cruise-price">{cruise.price}$</span>
-              <div className="buttons">
-                <button className="btn" onClick={() => addCruiseToCart(cruise)}>
-                  Add to cart
-                </button>
-              </div>
+      <Grid container spacing={2} style={{ marginTop: 40 }}>
+        <Grid item xs={3}>
+          <Card className="second-filter">
+            <Grid container style={{ marginTop: 40 }}>
+              {/* <Grid item xs={12} style={{ marginLeft: 16 }}>
+                <label className="title">Price</label>
+              </Grid> */}
+
+              <Grid item xs={10}>
+                {/* <Slider
+                  defaultValue={50}
+                  aria-label="Default"
+                  valueLabelDis
+                  play="auto"
+                /> */}
+
+                <FormLabel id="demo-controlled-radio-buttons-group" style={{ marginLeft: 16 }}>
+                  Price
+                </FormLabel>
+                <RadioGroup
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="controlled-radio-buttons-group"
+                  value={value}
+                  onChange={handleChange}
+                >
+                  <FormControlLabel
+                    value="1"
+                    control={<Radio />}
+                    label="500 To 1000"
+                  />
+                  <FormControlLabel
+                    value="2"
+                    control={<Radio />}
+                    label="1001 To 2000"
+                  />
+
+                  <FormControlLabel
+                    value="3"
+                    control={<Radio />}
+                    label="2001 To 3000"
+                  />
+
+                  <FormControlLabel
+                    value="4"
+                    control={<Radio />}
+                    label="3001 To 4000"
+                  />
+
+                  <FormControlLabel
+                    value="5"
+                    control={<Radio />}
+                    label="4001 and more"
+                  />
+                </RadioGroup>
+              </Grid>
+
+              <Grid item xs={10} style={{ marginTop: 25, marginLeft: 16 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Duration
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={duration}
+                    label="Duration"
+                    onChange={handleChangeDuration}
+                  >
+                    <MenuItem value="1-3">1 to 3 nights</MenuItem>
+                    <MenuItem value="4-6">4 to 6 nights</MenuItem>
+                    <MenuItem value="7-9">7 to 9 nights</MenuItem>
+                    <MenuItem value="10-13">10 to 13 nights</MenuItem>
+                    <MenuItem value="14">14 and more nights</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              <Grid
+                item
+                xs={10}
+                style={{ marginTop: 40, marginBottom: 40, marginLeft: 16 }}
+              >
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Cruise Provider
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={cruise_provider}
+                    label="cruise_provider"
+                    onChange={handleChangeCruiseProvider}
+                  >
+                    <MenuItem value="carnival_cruise_line">
+                      Carnival Cruise Line
+                    </MenuItem>
+                    <MenuItem value="princess_cruises">
+                      Princess Cruises
+                    </MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+            </Grid>
+          </Card>
+        </Grid>
+
+        <Grid item xs={9}>
+          <main>
+            <h2 className="title">Available Cruise Packages</h2>
+            <div className="cruises">
+              {cruiseDetails.map((cruise) => (
+                <div className="cruise" key={cruise._id}>
+                  <img
+                    className="cruise-image"
+                    src={cruise.image_path}
+                    alt={cruise.image_path}
+                  />
+                  <h4 className="cruise-name">{cruise.name}</h4>
+                  <RatingStars rating={cruise.rating} />
+                  <p>
+                    <strong>Cabin - </strong>
+                    {cruise.cabin}
+                  </p>
+                  <p>
+                    <strong>Deck - </strong>
+                    {cruise.deck}
+                  </p>
+                  <p>
+                    <strong>Price - </strong>
+                    {cruise.price}
+                  </p>
+                  <p>
+                    <strong>Arrival - </strong>
+                    {cruise.arrival}
+                  </p>
+                  <p>
+                    <strong>Departure - </strong>
+                    {cruise.departure}
+                  </p>
+                  <p>
+                    <strong>Duration - </strong>
+                    {cruise.duration}
+                  </p>
+                  <p>
+                    <strong>Provider - </strong>
+                    {cruise.cruise_provider}
+                  </p>
+                  <p>
+                    <strong>Arrival Date - </strong>
+                    {cruise.arrival_date}
+                  </p>
+                  <p>
+                    <strong>Departure Date - </strong>
+                    {cruise.departure_date}
+                  </p>
+                  <span className="cruise-price">{cruise.price}$</span>
+                  <div className="buttons">
+                    <button
+                      className="btn"
+                      onClick={() => addCruiseToCart(cruise)}
+                    >
+                      Add to cart
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </main>
+          </main>
+        </Grid>
+      </Grid>
     </div>
   );
 }
