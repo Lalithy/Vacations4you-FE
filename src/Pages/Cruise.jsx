@@ -21,8 +21,8 @@ import {
 
 import { DateRangePicker } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
-
 import axios from "axios";
+import moment from "moment";
 
 const apiUrl = "http://localhost:5000/api/cruise";
 
@@ -77,12 +77,30 @@ function Cruise() {
   useEffect(() => {
     localStorage.setItem("shopping-cart", JSON.stringify(cruisesInCart));
   }, [cruisesInCart]);
+
   const addCruiseToCart = (cruise) => {
     const newCruise = {
       ...cruise,
       count: 1,
+
+      // provider:cruise.name,
+      // cabin: cruise.cabin,
+      // deck: cruise.deck,
+      // departure: cruise.departure,
+      // arrival: cruise.arrival,
+      // duration: cruise.duration,
+      // arrivalDate: cruise.arrival_date,
+      // departureDate: cruise.departure_date,
     };
+
     setCruise([...cruisesInCart, newCruise]);
+
+    const updatedCart = [...cruisesInCart, newCruise];
+    setCruise(updatedCart);
+
+    localStorage.setItem("shopping-cart", JSON.stringify(updatedCart));
+
+    //window.location.href = "/cruise-booking";
   };
 
   //Get all cruise
@@ -500,14 +518,23 @@ function Cruise() {
                     <strong>Provider - </strong>
                     {cruise.cruise_provider}
                   </p>
-                  <p>
+                  {/* <p>
                     <strong>Arrival Date - </strong>
                     {cruise.arrival_date}
-                  </p>
+                  </p> */}
                   <p>
+                    <strong>Arrival Date - </strong>
+                    {moment(cruise.arrival_date).format("YYYY-MM-DD")}
+                  </p>
+                  {/* <p>
                     <strong>Departure Date - </strong>
                     {cruise.departure_date}
+                  </p> */}
+                   <p>
+                    <strong>Departure Date - </strong>
+                    {moment(cruise.departure_date).format("YYYY-MM-DD")}
                   </p>
+
                   <span className="cruise-price">{cruise.price}$</span>
                   <div className="buttons">
                     <button
