@@ -29,6 +29,7 @@ function CruiseCart({
           {cruises.length === 0 && (
             <span className="empty-text">Your cart is currently empty</span>
           )}
+
           {cruises.map((cruise) => (
             <div className="cart-cruise" key={cruise._id}>
               <img src={cruise.image_path} alt={cruise.name} />
@@ -66,6 +67,7 @@ function CruiseCart({
             <Link to="/cruise-booking" className="btn checkout-btn">
               Proceed to checkout
             </Link>
+          
           )}
         </div>
       </div>

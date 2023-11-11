@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../style/cruiseBooking.css";
 import {
   Card,
@@ -17,68 +17,93 @@ import {
   Button,
 } from "@mui/material";
 import TextField from "@mui/material/TextField";
+import moment from "moment";
 
-function ccyFormat(num) {
-  return `$${num.toFixed(2)}`;
-}
+// function ccyFormat(num) {
+//   return `$${num.toFixed(2)}`;
+// }
 
-function createRow(
-  provider,
-  cabin,
-  deck,
-  departure,
-  arrival,
-  duration,
-  arrivalDate,
-  departureDate,
-  price
-) {
-  return {
-    provider,
-    cabin,
-    deck,
-    departure,
-    arrival,
-    duration,
-    arrivalDate,
-    departureDate,
-    price: parseFloat(price),
-  };
-}
+// function createRow(
+//   provider,
+//   cabin,
+//   deck,
+//   departure,
+//   arrival,
+//   duration,
+//   arrivalDate,
+//   departureDate,
+//   price
+// ) {
+//   return {
+//     provider,
+//     cabin,
+//     deck,
+//     departure,
+//     arrival,
+//     duration,
+//     arrivalDate,
+//     departureDate,
+//     price: parseFloat(price),
+//   };
+// }
+
+const ccyFormat = (num) => `${num.toFixed(2)}`;
+
+// function createRow(provider, cabin, deck, departure, arrival, duration, arrivalDate, departureDate, price) {
+//   return { provider, cabin, deck, departure, arrival, duration, arrivalDate, departureDate, price };
+// }
 
 function subtotal(items) {
   return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
 }
 
-const rows = [
-  createRow(
-    "Carnival Cruise Line",
-    "Suit",
-    "D2",
-    "Colombo",
-    "Germany",
-    "25",
-    "2023-11-06",
-    "2023-11-30",
-    4500
-  ),
-  createRow(
-    "Carnival Cruise Line",
-    "Suit",
-    "D2",
-    "Colombo",
-    "UK",
-    "30",
-    "2023-11-05",
-    "2023-11-30",
-    6500
-  ),
-];
 
-const invoiceSubtotal = subtotal(rows);
-// const invoiceTotal = invoiceSubtotal;
+
+// function subtotal(items) {
+//   return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
+// }
+
+// const rows = [
+//   createRow(
+//     "Carnival Cruise Line",
+//     "Suit",
+//     "D2",
+//     "Colombo",
+//     "Germany",
+//     "25",
+//     "2023-11-06",
+//     "2023-11-30",
+//     4500
+//   ),
+//   createRow(
+//     "Carnival Cruise Line",
+//     "Suit",
+//     "D2",
+//     "Colombo",
+//     "UK",
+//     "30",
+//     "2023-11-05",
+//     "2023-11-30",
+//     6500
+//   ),
+// ];
+
+// const invoiceSubtotal = subtotal(rows);
 
 export default function CruiseBooking() {
+  const storedCartData = JSON.parse(localStorage.getItem("shopping-cart")) || [];
+  const [cartData, setCartData] = useState(storedCartData);
+
+
+  useEffect(() => {
+    const updatedCartData = JSON.parse(localStorage.getItem("shopping-cart")) || [];
+    setCartData(updatedCartData);
+  }, []);
+
+  const invoiceSubtotal = subtotal(cartData);
+
+  console.log('cartData>>>>',cartData)
+
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [isValid, setIsValid] = useState(true);
@@ -199,16 +224,21 @@ export default function CruiseBooking() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row, index) => (
+                  {cartData.map((row, index) => (
                     <TableRow key={index}>
-                      <TableCell>{row.provider}</TableCell>
+                      <TableCell>{row.name}</TableCell>
                       <TableCell align="right">{row.cabin}</TableCell>
                       <TableCell align="right">{row.deck}</TableCell>
                       <TableCell align="right">{row.departure}</TableCell>
                       <TableCell align="right">{row.arrival}</TableCell>
                       <TableCell align="right">{row.duration}</TableCell>
-                      <TableCell align="right">{row.arrivalDate}</TableCell>
-                      <TableCell align="right">{row.departureDate}</TableCell>
+                      {/* <TableCell align="right">{row.arrival_date}</TableCell> */}
+                      {/* <TableCell align="right">{row.departure_date}</TableCell> */}
+
+                      <TableCell align="right"> {moment(row.arrival_date).format("YYYY-MM-DD")}</TableCell>
+                      <TableCell align="right">{moment(row.departure_date).format("YYYY-MM-DD")}</TableCell>
+                     
+                     
                       <TableCell align="right">
                         {ccyFormat(row.price)}
                       </TableCell>
@@ -224,12 +254,6 @@ export default function CruiseBooking() {
                     </TableCell>
                   </TableRow>
 
-                  {/* <TableRow>
-                    <TableCell align="right" colSpan={7}>Total</TableCell>
-                    <TableCell align="right">
-                      {ccyFormat(invoiceTotal)}
-                    </TableCell>
-                  </TableRow> */}
                 </TableBody>
               </Table>
             </TableContainer>
