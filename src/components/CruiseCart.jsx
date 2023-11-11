@@ -35,7 +35,7 @@ function CruiseCart({
               <div className="cruise-info">
                 <h3>{cruise.name}</h3>
                 <span className="cruise-price">
-                  {cruise.price * cruise.count}$
+                  $ {cruise.price * cruise.count}
                 </span>
               </div>
               <select

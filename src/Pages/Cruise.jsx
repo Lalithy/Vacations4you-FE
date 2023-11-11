@@ -13,18 +13,18 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  // Slider,
   Radio,
   RadioGroup,
   FormControlLabel,
-  FormLabel
+  FormLabel,
 } from "@mui/material";
-
 
 import { DateRangePicker } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
 
 import axios from "axios";
+
+const apiUrl = "http://localhost:5000/api/cruise";
 
 function Cruise() {
   const [departure, setDeparture] = React.useState("");
@@ -33,13 +33,17 @@ function Cruise() {
   const [deck, setDeck] = React.useState("");
   const [departure_date, setDepartureDate] = React.useState(null);
   const [arrival_date, setArrivalDate] = React.useState(null);
+
   const [duration, setDuration] = React.useState("");
   const [cruise_provider, setCruiseProvider] = React.useState("");
+  const [price, setValuePrice] = React.useState("");
 
-  const [value, setValue] = React.useState('');
+  const [cruiseDetails, setCruiseDetails] = useState([]);
+  const [newCruiseDetails, setNewCruiseDetails] = useState([cruiseDetails]);
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
+  const handleChangePrice = (event) => {
+    setValuePrice(event.target.value);
+    filterCruise(event.target.value);
   };
 
   const handleChangeDeparture = (event) => {
@@ -82,15 +86,13 @@ function Cruise() {
   };
 
   //Get all cruise
-  const [cruiseDetails, setCruiseDetails] = useState([]);
-  
-
   useEffect(() => {
     const cruiseService = new CruiseService(CruiseClient);
     const fetchCruise = async () => {
       try {
         const cruiseList = await cruiseService.getAllCruise();
         setCruiseDetails(cruiseList);
+        setNewCruiseDetails(cruiseList);
       } catch (error) {
         console.log(error);
       }
@@ -103,11 +105,51 @@ function Cruise() {
     try {
       const cruiseList = await cruiseService.getAllCruise();
       setCruiseDetails(cruiseList);
+      setNewCruiseDetails(cruiseList);
     } catch (error) {
       console.log(error);
     }
   };
 
+  // Filter Cruise
+  const filterCruise = (value) => {
+    if (cruiseDetails.length <= 0) {
+      fetchAllCruise();
+    }
+    if (value === "") {
+      setNewCruiseDetails(cruiseDetails);
+    } else if (value === "500") {
+      console.log(value);
+      const filteredCruise = cruiseDetails.filter(
+        (newValue) => newValue.price >= 500 && newValue.price <= 1000
+      );
+      setNewCruiseDetails(filteredCruise);
+    } else if (value === "1001") {
+      console.log(value);
+      const filteredCruise = cruiseDetails.filter(
+        (newValue) => newValue.price >= 1001 && newValue.price <= 2000
+      );
+      setNewCruiseDetails(filteredCruise);
+    } else if (value === "2001") {
+      console.log(value);
+      const filteredCruise = cruiseDetails.filter(
+        (newValue) => newValue.price >= 2001 && newValue.price <= 3000
+      );
+      setNewCruiseDetails(filteredCruise);
+    } else if (value === "3001") {
+      console.log(value);
+      const filteredCruise = cruiseDetails.filter(
+        (newValue) => newValue.price >= 3001 && newValue.price <= 4000
+      );
+      setNewCruiseDetails(filteredCruise);
+    } else if (value === "4001") {
+      console.log(value);
+      const filteredCruise = cruiseDetails.filter(
+        (newValue) => newValue.price >= 4001
+      );
+      setNewCruiseDetails(filteredCruise);
+    }
+  };
 
   const onQuantityChange = (cruiseId, count) => {
     setCruise((oldState) => {
@@ -131,8 +173,6 @@ function Cruise() {
     });
   };
 
-  const apiUrl = "http://localhost:5000/api/cruise";
-
   //Set cruise data by search criteria
   const queryParams = {
     deck: deck,
@@ -152,8 +192,10 @@ function Cruise() {
     try {
       const data = await axios.get(apiUrl, { params: queryParams });
       setCruiseDetails(data.data);
+      setNewCruiseDetails(data.data);
     } catch (error) {
       setCruiseDetails([]);
+      setNewCruiseDetails([]);
 
       if (error.response) {
         console.log(
@@ -177,7 +219,7 @@ function Cruise() {
     setDepartureDate("");
     setArrivalDate("");
 
-    fetchAllCruise()
+    fetchAllCruise();
   };
 
   return (
@@ -321,42 +363,47 @@ function Cruise() {
                   play="auto"
                 /> */}
 
-                <FormLabel id="demo-controlled-radio-buttons-group" style={{ marginLeft: 16 }}>
+                <FormLabel
+                  id="demo-controlled-radio-buttons-group"
+                  style={{ marginLeft: 16 }}
+                >
                   Price
                 </FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-controlled-radio-buttons-group"
                   name="controlled-radio-buttons-group"
-                  value={value}
-                  onChange={handleChange}
+                  value={price}
+                  onChange={handleChangePrice}
                 >
+                  <FormControlLabel value="" control={<Radio />} label="All" />
+
                   <FormControlLabel
-                    value="1"
+                    value="500"
                     control={<Radio />}
-                    label="500 To 1000"
+                    label="$ 500 To 1000"
                   />
                   <FormControlLabel
-                    value="2"
+                    value="1001"
                     control={<Radio />}
-                    label="1001 To 2000"
+                    label="$ 1001 To 2000"
                   />
 
                   <FormControlLabel
-                    value="3"
+                    value="2001"
                     control={<Radio />}
-                    label="2001 To 3000"
+                    label="$ 2001 To 3000"
                   />
 
                   <FormControlLabel
-                    value="4"
+                    value="3001"
                     control={<Radio />}
-                    label="3001 To 4000"
+                    label="$ 3001 To 4000"
                   />
 
                   <FormControlLabel
-                    value="5"
+                    value="4001"
                     control={<Radio />}
-                    label="4001 and more"
+                    label="$ 4001 and more"
                   />
                 </RadioGroup>
               </Grid>
@@ -415,7 +462,8 @@ function Cruise() {
           <main>
             <h2 className="title">Available Cruise Packages</h2>
             <div className="cruises">
-              {cruiseDetails.map((cruise) => (
+              {/* {cruiseDetails.map((cruise) => ( */}
+              {newCruiseDetails.map((cruise) => (
                 <div className="cruise" key={cruise._id}>
                   <img
                     className="cruise-image"
