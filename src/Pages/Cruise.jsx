@@ -530,12 +530,12 @@ function Cruise() {
                     <strong>Departure Date - </strong>
                     {cruise.departure_date}
                   </p> */}
-                   <p>
+                  <p>
                     <strong>Departure Date - </strong>
                     {moment(cruise.departure_date).format("YYYY-MM-DD")}
                   </p>
 
-                  <span className="cruise-price">{cruise.price}$</span>
+                  <span className="cruise-price">$ {cruise.price}</span>
                   <div className="buttons">
                     <button
                       className="btn"
