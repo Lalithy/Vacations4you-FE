@@ -38,13 +38,12 @@ function Cruise() {
   const [cruise_provider, setCruiseProvider] = React.useState("");
   const [price, setValuePrice] = React.useState("");
 
+  const [durationTemp, setDurationTemp] = useState("");
+  const [cruiseProviderTemp, setCruiseProviderTemp] = useState("");
+  const [priceTemp, setValuePriceTemp] = useState("");
+
   const [cruiseDetails, setCruiseDetails] = useState([]);
   const [newCruiseDetails, setNewCruiseDetails] = useState([cruiseDetails]);
-
-  const handleChangePrice = (event) => {
-    setValuePrice(event.target.value);
-    filterCruise(event.target.value);
-  };
 
   const handleChangeDeparture = (event) => {
     setDeparture(event.target.value);
@@ -62,12 +61,22 @@ function Cruise() {
     setCabin(event.target.value);
   };
 
+  const handleChangePrice = (event) => {
+    setValuePrice(event.target.value);
+    setValuePriceTemp(event.target.value);
+    filterCruise(event.target.value);
+  };
+
   const handleChangeDuration = (event) => {
     setDuration(event.target.value);
+    setDurationTemp(event.target.value);
+    filterCruise(event.target.value);
   };
 
   const handleChangeCruiseProvider = (event) => {
     setCruiseProvider(event.target.value);
+    setCruiseProviderTemp(event.target.value);
+    filterCruise(event.target.value);
   };
 
   const [cartsVisibility, setCartVisible] = useState(false);
@@ -131,6 +140,9 @@ function Cruise() {
 
   // Filter Cruise
   const filterCruise = (value) => {
+    console.log("priceTemp " + priceTemp);
+    console.log("durationTemp " + durationTemp);
+    console.log("cruiseProviderTemp " + cruiseProviderTemp);
     if (cruiseDetails.length <= 0) {
       fetchAllCruise();
     }
@@ -463,10 +475,10 @@ function Cruise() {
                     label="cruise_provider"
                     onChange={handleChangeCruiseProvider}
                   >
-                    <MenuItem value="carnival_cruise_line">
+                    <MenuItem value="Carnival Cruise Line">
                       Carnival Cruise Line
                     </MenuItem>
-                    <MenuItem value="princess_cruises">
+                    <MenuItem value="Princess Cruises">
                       Princess Cruises
                     </MenuItem>
                   </Select>
