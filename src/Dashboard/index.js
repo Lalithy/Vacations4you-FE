@@ -33,49 +33,6 @@ const Dashboard = () => {
     );
   }
 
-  const rows = [
-    {
-      id: "1",
-      name: "Bhagya Travels",
-      address: "Colombo 03",
-      contact: "0785231458",
-      date: "2022-01-09",
-      bookings: "58",
-    },
-    {
-      id: "2",
-      name: "Travel Safe",
-      address: "Colombo 10",
-      contact: "0785231458",
-      date: "2022-01-09",
-      bookings: "10",
-    },
-    {
-      id: "3",
-      name: "Travel Today",
-      address: "Colombo 05",
-      contact: "0785231458",
-      date: "2022-01-09",
-      bookings: "45",
-    },
-    {
-      id: "4",
-      name: "Bhagya Travels",
-      address: "Colombo 03",
-      contact: "0785231458",
-      date: "2022-01-09",
-      bookings: "58",
-    },
-    {
-      id: "5",
-      name: "Bhagya Travels",
-      address: "Colombo 03",
-      contact: "0785231458",
-      date: "2022-01-09",
-      bookings: "58",
-    },
-  ];
-
   const columns = [
     {
       field: "departure",
@@ -167,7 +124,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="col-lg-3 mb-2">
-          <div className="card" style={{ backgroundColor: "#4095C4" }}>
+          <div className="card" style={{ backgroundColor: "#B2BABB" }}>
             <div className="card-body">
               <h5 className="card-title">
                 Submit{" "}
@@ -181,7 +138,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="col-lg-3 mb-2">
-          <div className="card" style={{ backgroundColor: "#2C6BAA" }}>
+          <div className="card" style={{ backgroundColor: "#7F8C8D" }}>
             <div className="card-body">
               <h5 className="card-title">
                Reset{" "}
@@ -194,7 +151,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="col-lg-3 mb-2">
-          <div className="card" style={{ backgroundColor: "#404FA5" }}>
+          <div className="card" style={{ backgroundColor: "#5DADE2" }}>
             <div className="card-body">
               <h5 className="card-title">
                 This Month Income{" "}
@@ -203,7 +160,23 @@ const Dashboard = () => {
                   style={{ color: "#FFFFFF", marginBottom: "5px" }}
                 ></AttachMoneyIcon>
               </h5>
-              <h2 className="card-text">56000.00</h2>
+              <FormControl>
+      <InputLabel id="Type">Select Option</InputLabel>
+      <Select
+        labelId="type"
+        id="Type"
+        value={selectedValue}
+        label="Select Option"
+        onChange={handleChange}
+      >
+        <MenuItem value="">
+          <em>None</em>
+        </MenuItem>
+        <MenuItem value="option1">Option 1</MenuItem>
+        <MenuItem value="option2">Option 2</MenuItem>
+        <MenuItem value="option3">Option 3</MenuItem>
+      </Select>
+    </FormControl>
             </div>
           </div>
         </div>
