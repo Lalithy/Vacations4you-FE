@@ -1,24 +1,25 @@
-import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import NavBar from "./components/Navbar";
-import Cruise from "./Pages/Cruise";
-import Package from "./Pages/Package";
-import Activity from "./Pages/Activity";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Dashboard from "./Dashboard";
+import Container from "./Container";
+import AgentRegister from "./AgentRegister";
+import AgentEdit from "./AgentEdit";
 
 function App() {
   return (
     <>
-      <Router>
-        <NavBar />
+      <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<Cruise />} />
-          <Route path="/activity" element={<Activity />} />
-          <Route path="/package" element={<Package />} />
+          <Route element={<Container />}>
+            <Route index element={<Dashboard />} />
+            <Route path="agent-register" element={<AgentRegister />} />
+            <Route path="agent-edit" element={<AgentEdit/>} />
+          </Route>
         </Routes>
-      </Router>
+      </BrowserRouter>
     </>
-    
   );
 }
 
 export default App;
+
